@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Library</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="index.js"></script>
+    <script>var userID = "<%= userID %>"</script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <header>Grace's Library</header>
+        </div>
+        <div id="memberBar">
+            <table>
+                <tr>
+                    <td id="memberBarLeft">Hi, <%= loggedin == true ? username : "Guest"%></td>
+                    <td id="memberBarRight">
+                        <% if (loggedin) { %>
+                        <input type="button" onclick="javascript:location.href='/borrowList'" value="借書清單"><input type="button"
+                            onclick="javascript:location.href='/logout'" value="登出">
+                        <% } else { %>
+                        <input type="button" onclick="javascript:location.href='/login.html'" value="請登入">
+                        <% } %>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="booksList">
+            <div id="borrowButton" style="display:none"><button type="button">借書</button></div>
+            <table cellspacing="0">
+                <% for(var i=0; i < books.length; i++) { %>
+                <% if (i % 4 == 0) {  %><tr><% } %>
+                    <td>
+                        <% if (loggedin) { %><input type="checkbox" id="<%= books[i].id %>"/><% } %>
+                        <p><%= books[i].author %></p>
+                        <div class="imgContainer"><img src="<%= books[i].cover_url %>"></div>
+                        <p><%= books[i].name %></p>
+                    </td>
+                    <% if (i % 4 == 3 || i + 1 == books.length) {  %></tr><% } %>
+                <% } %>
+            </table>
+        </div>
+        <div id="footer">
+            <footer>Copyright &copy; 2019 Grace Chen.</footer>
+        </div>
+    </div>
+</body>
+
+</html>

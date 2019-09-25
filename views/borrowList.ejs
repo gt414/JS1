@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="borrowList.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="borrowList.js"></script>
+    <script>var userID = "<%= userID %>"</script>
+    <script>if (userID == "") window.location = "/";</script>
+    <title>Borrow List</title>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <header>Grace's Library - 借書清單</header>
+        </div>
+        <% if (list.length > 0) { %>
+        <div id="borrowList" cellspacing="0">
+            <table>
+                <thead>
+                    <tr>
+                        <td>書籍資訊</td>
+                        <td>借閱日期</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i=0; i < list.length; i++) { %>
+                    <tr>
+                        <td><%= list[i].name %> - <%= list[i].author %> - <%= list[i].publisher %> -
+                            <%= list[i].publication_date %></td>
+                        <td class="dateAndButton" style="width: 80px;"><%= list[i].borrow_date %></td>
+                        <td class="dateAndButton"><input type="button" onclick="returnButtonDidClicked(this.id)"
+                                id="<%= list[i].id %>" value="還書"></td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+        <% } else { %>
+        <div id="noData">
+            <p>尚無借閱任何書籍</p>
+        </div>
+        <% } %>
+        <div id="footer">
+            <footer>Copyright &copy; 2019 Grace Chen.</footer>
+        </div>
+    </div>
+</body>
+
+</html>
